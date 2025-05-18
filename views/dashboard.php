@@ -61,6 +61,49 @@ $result = $stmt->get_result();
             </tbody>
         </table>
     </div>
+
+<!-- Tarjetas de Cursos -->
+<h4 class="mt-5 mb-3 text-primary fw-semibold">Resumen Visual de Cursos</h4>
+<div class="row">
+    <?php
+    $result->data_seek(0); // Reiniciar puntero de resultados
+
+    // Definir una paleta de colores suaves
+    $colorThemes = [
+        ['bg' => '#e3f2fd', 'header' => '#2196f3'],
+        ['bg' => '#e8f5e9', 'header' => '#4caf50'],
+        ['bg' => '#fff8e1', 'header' => '#ffb300'],
+        ['bg' => '#fce4ec', 'header' => '#ec407a'],
+        ['bg' => '#ede7f6', 'header' => '#673ab7'],
+        ['bg' => '#e0f2f1', 'header' => '#009688']
+    ];
+
+    while ($row = $result->fetch_assoc()):
+        $theme = $colorThemes[array_rand($colorThemes)];
+    ?>
+    <div class="col-md-6 col-lg-4 mb-4">
+        <div class="shadow-sm rounded-4" style="background-color: <?= $theme['bg'] ?>; border: 1px solid #ddd;">
+            <div style="background-color: <?= $theme['header'] ?>; color: white;" class="rounded-top-4 px-3 py-2">
+                <h5 class="mb-0 fw-bold"><?= htmlspecialchars($row['title']) ?></h5>
+            </div>
+            <div class="p-3">
+                <p class="mb-2"><strong>Categoría:</strong> <?= htmlspecialchars($row['category']) ?></p>
+                <p class="mb-2"><strong>Duración:</strong> <?= htmlspecialchars($row['duration']) ?></p>
+                <p class="mb-2"><strong>Instructor:</strong> <?= htmlspecialchars($row['instructor']) ?></p>
+                <div class="d-flex justify-content-between">
+                    <small><strong>Inicio:</strong> <?= date('d/m/Y', strtotime($row['start_date'])) ?></small>
+                    <small><strong>Fin:</strong> <?= date('d/m/Y', strtotime($row['end_date'])) ?></small>
+                </div>
+            </div>
+            <div class="px-3 py-2 border-top" style="background-color: rgba(0, 0, 0, 0.03); border-radius: 0 0 16px 16px;">
+                <small class="text-muted">Inscrito el <?= date('d/m/Y H:i', strtotime($row['registration_date'])) ?></small>
+            </div>
+        </div>
+    </div>
+    <?php endwhile; ?>
+</div>
+
+
 <?php else: ?>
     <div class="alert alert-info mt-3 shadow-sm" role="alert">
         No te has inscrito en ningún curso todavía. <a href="register.php" class="alert-link">Explora nuestros cursos aquí.</a>
@@ -68,5 +111,6 @@ $result = $stmt->get_result();
 <?php endif; ?>
 
 <?php include '../includes/footer.php'; ?>
+
 
 
