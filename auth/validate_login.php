@@ -1,4 +1,4 @@
-<?php
+<?php 
 session_start();
 include '../includes/db.php';
 
@@ -25,19 +25,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             $_SESSION['student_id'] = $id;
 
             // Limpiar datos temporales
-            unset($_SESSION['login_error'], $_SESSION['error_type'], $_SESSION['input_email']);
+            unset($_SESSION['error'], $_SESSION['error_type'], $_SESSION['input_email']);
 
             header("Location: ../views/dashboard.php");
             exit;
         } else {
-            $_SESSION['login_error'] = "Contraseña incorrecta.";
+            $_SESSION['error'] = "Contraseña incorrecta.";
             $_SESSION['error_type'] = 'password';
             header("Location: login.php");
             exit;
         }
     } else {
-        $_SESSION['login_error'] = "Correo electrónico no registrado.";
-        $_SESSION['error_type'] = 'email';
+        $_SESSION['error'] = "Correo electrónico no registrado.";
+        $_SESSION['error_type'] = 'no_user';
         header("Location: login.php");
         exit;
     }
@@ -45,6 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     header("Location: login.php");
     exit;
 }
+
 
 
 

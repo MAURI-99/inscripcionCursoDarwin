@@ -156,6 +156,7 @@ $result = $conn->query("SELECT * FROM courses ORDER BY title ASC");
     const confirmPasswordError = document.getElementById('confirmPasswordError');
     const togglePasswordBtn = document.getElementById('togglePassword');
 
+    // Toggle mostrar/ocultar contraseña
     togglePasswordBtn.addEventListener('click', () => {
         if (passwordInput.type === 'password') {
             passwordInput.type = 'text';
@@ -168,13 +169,16 @@ $result = $conn->query("SELECT * FROM courses ORDER BY title ASC");
         }
     });
 
+    // Validación del formulario
     form.addEventListener('submit', (e) => {
         let valid = true;
 
-        // Validar cursos seleccionados
+        // Validar que al menos un curso esté seleccionado
         const courses = form.querySelectorAll('input[name="courses[]"]');
         let oneChecked = false;
-        courses.forEach(c => { if (c.checked) oneChecked = true; });
+        courses.forEach(c => {
+            if (c.checked) oneChecked = true;
+        });
         if (!oneChecked) {
             courseError.classList.remove('d-none');
             valid = false;
@@ -182,7 +186,7 @@ $result = $conn->query("SELECT * FROM courses ORDER BY title ASC");
             courseError.classList.add('d-none');
         }
 
-        // Validar contraseña con regex
+        // Validar contraseña con regex (mín 8 caracteres, mayúscula, minúscula, número y carácter especial)
         const passwordVal = passwordInput.value.trim();
         const confirmVal = confirmPasswordInput.value.trim();
         const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{8,}$/;
@@ -197,7 +201,7 @@ $result = $conn->query("SELECT * FROM courses ORDER BY title ASC");
             passwordInput.classList.add('is-valid');
         }
 
-        // Validar confirmación contraseña
+        // Validar que las contraseñas coincidan
         if (passwordVal !== confirmVal || confirmVal === '') {
             confirmPasswordError.classList.remove('d-none');
             confirmPasswordInput.classList.add('is-invalid');
@@ -208,11 +212,12 @@ $result = $conn->query("SELECT * FROM courses ORDER BY title ASC");
             confirmPasswordInput.classList.add('is-valid');
         }
 
-        // Validación HTML5 nativa para otros campos
+        // Validar resto de campos con validación HTML5
         if (!form.checkValidity()) {
             valid = false;
         }
 
+        // Si no pasa validación, prevenir envío
         if (!valid) {
             e.preventDefault();
             e.stopPropagation();

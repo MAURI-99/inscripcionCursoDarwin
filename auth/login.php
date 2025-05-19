@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 
 if (isset($_SESSION['email'])) {
@@ -58,6 +58,15 @@ unset($_SESSION['error'], $_SESSION['error_type'], $_SESSION['input_email']);
                     <div class="mt-4 text-center">
                         <a href="forgot_password.php" class="text-success fw-semibold text-decoration-none">¿Olvidaste tu contraseña?</a>
                     </div>
+                <?php elseif ($error_type === 'no_user'): ?>
+                    <div class="mt-4 text-center">
+                        <span class="d-block mb-2 text-muted">¿No tienes cuenta aún?</span>
+                        <!-- Aquí reemplazamos el enlace por un formulario POST -->
+                        <form action="../views/register.php" method="POST" class="d-inline">
+                            <input type="hidden" name="email" value="<?= htmlspecialchars($input_email) ?>">
+                            <button type="submit" class="btn btn-outline-primary fw-semibold shadow-sm px-4">Registrarse</button>
+                        </form>
+                    </div>
                 <?php endif; ?>
             </div>
         </div>
@@ -80,6 +89,8 @@ document.getElementById('togglePassword').addEventListener('click', function () 
 </script>
 
 <?php include '../includes/footer.php'; ?>
+
+
 
 
 

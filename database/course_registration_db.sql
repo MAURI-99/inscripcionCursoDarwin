@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 18-05-2025 a las 03:07:01
+-- Tiempo de generación: 19-05-2025 a las 05:16:27
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -52,7 +52,8 @@ INSERT INTO `courses` (`id`, `title`, `description`, `category`, `duration`, `st
 (7, 'Fotografía Digital', 'Técnicas y composición para fotografía profesional', 'Arte y Diseño', '1.5 meses', '2025-07-05', '2025-08-20', 'Andrés Molina'),
 (8, 'Gestión de Proyectos', 'Metodologías ágiles y tradicionales para liderar proyectos', 'Administración', '2 meses', '2025-06-25', '2025-08-25', 'Sofía Herrera'),
 (9, 'Inglés Básico', 'Curso de inglés para principiantes enfocado en conversación', 'Idiomas', '2 meses', '2025-06-01', '2025-07-31', 'Emily Brown'),
-(10, 'Excel para Negocios', 'Domina Excel desde funciones básicas hasta tablas dinámicas', 'Ofimática', '1.5 meses', '2025-06-15', '2025-07-31', 'Diego Castro');
+(10, 'Excel para Negocios', 'Domina Excel desde funciones básicas hasta tablas dinámicas', 'Ofimática', '1.5 meses', '2025-06-15', '2025-07-31', 'Diego Castro'),
+(11, 'Power BI Básico', 'Aprende a crear dashboards interactivos y visualizaciones de datos', 'Ofimática', '1 mes', '2025-07-01', '2025-07-31', 'Carla Vega');
 
 -- --------------------------------------------------------
 
@@ -66,6 +67,18 @@ CREATE TABLE `course_registrations` (
   `course_id` int(11) NOT NULL,
   `registration_date` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `course_registrations`
+--
+
+INSERT INTO `course_registrations` (`id`, `student_id`, `course_id`, `registration_date`) VALUES
+(38, 16, 1, '2025-05-19 03:09:59'),
+(39, 16, 4, '2025-05-19 03:10:59'),
+(40, 16, 2, '2025-05-19 03:11:06'),
+(41, 17, 1, '2025-05-19 03:13:13'),
+(42, 17, 4, '2025-05-19 03:13:13'),
+(43, 17, 11, '2025-05-19 03:13:58');
 
 -- --------------------------------------------------------
 
@@ -83,6 +96,14 @@ CREATE TABLE `students` (
   `education_level` varchar(100) DEFAULT NULL,
   `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Volcado de datos para la tabla `students`
+--
+
+INSERT INTO `students` (`id`, `full_name`, `email`, `birthdate`, `gender`, `address`, `education_level`, `password`) VALUES
+(16, 'DARWIN MAURICIO ARMIJOS TORRES', 'mauriarmyaz.1999@gmail.com', '2000-02-16', 'Masculino', 'Cutuglahua', 'SUPERIOR', '$2y$10$/ptbg/xeqTZF4DEK9LX1YODne21orKXVgh2jPHTG6hKIwm9ECezrG'),
+(17, 'MANUEL DARWIN ARMIJOS CALERO', 'dmanuel_73@gmail.com', '1973-02-20', 'Masculino', 'SANGOLQUI', 'SUPERIOR', '$2y$10$EbmixxJZwVkN.Ks5YtzxW.dmJcNQXlgZMYKE.VlMu6wMrgOneOgeu');
 
 --
 -- Índices para tablas volcadas
@@ -117,19 +138,19 @@ ALTER TABLE `students`
 -- AUTO_INCREMENT de la tabla `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT de la tabla `course_registrations`
 --
 ALTER TABLE `course_registrations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT de la tabla `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- Restricciones para tablas volcadas
